@@ -84,24 +84,9 @@ def generate_svg(mode):
     <rect width="1180" height="610" fill="{bg_color}" rx="16" />
     <rect width="1180" height="610" fill="url(#bgGlow)" rx="16" />
     
-    <!-- Particles -->
+    <!-- Particles removed to reduce lag -->
     <g opacity="0.4">
-"""
-    
-    import random
-    random.seed(42)
-    for i in range(20):
-        x = random.randint(0, 1180)
-        y = random.randint(0, 610)
-        r = random.uniform(1, 3)
-        dur = random.uniform(5, 10)
-        delay = random.uniform(0, 5)
-        svg += f'        <circle cx="{x}" cy="{y}" r="{r}" fill="{accent_mid}">\n'
-        svg += f'            <animate attributeName="cy" values="{y};{y-100};{y}" dur="{dur}s" begin="{delay}s" repeatCount="indefinite" />\n'
-        svg += f'            <animate attributeName="opacity" values="0;1;0" dur="{dur}s" begin="{delay}s" repeatCount="indefinite" />\n'
-        svg += '        </circle>\n'
-        
-    svg += f"""    </g>
+    </g>
 
     <!-- Left Side: ASCII Portrait (approx 38% = 450px) -->
     <g transform="translate(30, 30)">
@@ -182,14 +167,14 @@ def generate_svg(mode):
         <circle cx="20" cy="20" r="6" fill="#EF4444" />
         <circle cx="40" cy="20" r="6" fill="#F59E0B" />
         <circle cx="60" cy="20" r="6" fill="#10B981" />
-        <text x="345" y="25" font-family="monospace" font-size="12" fill="{text_muted}" text-anchor="middle">visitor@portfolio:~</text>
+        <text x="345" y="25" font-family="monospace" font-size="12" fill="{text_muted}" text-anchor="middle">visitor@soelnvc:~</text>
         
         <!-- Terminal Body -->
         <g transform="translate(30, 80)" font-family="monospace" font-size="16">
             
             <!-- Greeting -->
             <text x="0" y="0" fill="{text_primary}" font-weight="bold" font-size="24">
-                Hi 👋 I'm <tspan fill="url(#accentGrad)">{{NAME}}</tspan>
+                Hi 👋 I'm <tspan fill="url(#accentGrad)">Siddhesh Goel</tspan>
             </text>
 
             <!-- Animated Typing Text Roles -->
@@ -200,15 +185,15 @@ def generate_svg(mode):
                 
 """
     
-    roles = ["Frontend Engineer", "Full Stack Developer", "Open Source Contributor", "UI Engineer", "AI Enthusiast"]
+    roles = ["Frontend Engineer", "Full Stack Developer", "Open Source Contributor", "UI/UX Designer", "Data Enthusiast"]
     for i, role in enumerate(roles):
         begin_time = i * 4
         svg += f'                <g opacity="0">\n'
-        svg += f'                    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.05;0.8;0.85;1" dur="{len(roles)*4}s" begin="{begin_time}s" repeatCount="indefinite" />\n'
+        svg += f'                    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.05;0.15;0.2;1" dur="{len(roles)*4}s" begin="{begin_time}s" repeatCount="indefinite" />\n'
         
         svg += f'                    <clipPath id="clipRole{i}">\n'
         svg += f'                        <rect x="20" y="-15" width="0" height="20">\n'
-        svg += f'                            <animate attributeName="width" values="0;300;300" keyTimes="0;0.3;1" dur="4s" begin="{begin_time}s" repeatCount="indefinite" />\n'
+        svg += f'                            <animate attributeName="width" values="0;300;300;0;0" keyTimes="0;0.05;0.15;0.2;1" dur="{len(roles)*4}s" begin="{begin_time}s" repeatCount="indefinite" />\n'
         svg += f'                        </rect>\n'
         svg += f'                    </clipPath>\n'
         
@@ -229,11 +214,10 @@ def generate_svg(mode):
 """
 
     info = [
-        ("Location", "San Francisco, CA"),
-        ("Education", "B.S. Computer Science"),
+        ("Location", "Electronic City, Bengaluru"),
+        ("Education", "BS Computer Science"),
         ("Current Focus", "Building Next-Gen UIs"),
-        ("Portfolio", "portfolio.dev"),
-        ("Email", "hello@portfolio.dev")
+        ("Email", "soelnvc@gmail.com")
     ]
     
     for i, (key, val) in enumerate(info):
@@ -254,7 +238,7 @@ def generate_svg(mode):
                 <g transform="translate(0, 20)">
 """
     
-    skills = ["React", "Next.js", "Node.js", "TypeScript", "Tailwind", "Python", "Docker", "Postgres", "AWS", "Git", "Figma"]
+    skills = ["React", "Next.js", "Python", "Java", "JavaScript", "Scikit-Learn", "MySQL", "Git", "Canva", "HTML/CSS"]
     
     x_pos = 0
     y_pos = 0
@@ -285,14 +269,20 @@ def generate_svg(mode):
                 <g transform="translate(0, 20)">
 """
 
-    socials = ["GitHub", "LinkedIn", "Twitter", "Portfolio"]
-    for i, social in enumerate(socials):
+    social_links = {
+        "GitHub": "https://github.com/soelnvc",
+        "LinkedIn": "https://linkedin.com/in/siddheshgoel",
+        "Email": "mailto:soelnvc@gmail.com"
+    }
+    for i, (social, link) in enumerate(social_links.items()):
         svg += f'                    <g transform="translate({i * 120}, 0)" opacity="0">\n'
         svg += f'                        <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.1;1" dur="100s" begin="{7 + i*0.3}s" fill="freeze" />\n'
-        svg += f'                        <text x="0" y="15" fill="{text_muted}" font-size="14" font-weight="bold">\n'
-        svg += f'                            <tspan>↗ </tspan>\n'
-        svg += f'                            <tspan fill="{text_primary}">{social}</tspan>\n'
-        svg += f'                        </text>\n'
+        svg += f'                        <a href="{link}" target="_blank">\n'
+        svg += f'                            <text x="0" y="15" fill="{text_muted}" font-size="14" font-weight="bold">\n'
+        svg += f'                                <tspan>↗ </tspan>\n'
+        svg += f'                                <tspan fill="{text_primary}">{social}</tspan>\n'
+        svg += f'                            </text>\n'
+        svg += f'                        </a>\n'
         svg += f'                    </g>\n'
 
     svg += f"""                </g>
