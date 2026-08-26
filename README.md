@@ -1,4 +1,4 @@
-# My GitHub Profile
+# Hello 👋
 
 <!-- Theme-aware profile header banner -->
 <p align="center">
